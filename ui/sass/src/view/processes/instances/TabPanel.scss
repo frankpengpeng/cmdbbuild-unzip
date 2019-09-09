@@ -1,0 +1,29 @@
+// Process action field
+.#{$prefix}field.#{$prefix}process-action-field {
+    
+    &.#{$prefix}form-readonly {
+        .#{$prefix}form-trigger-wrap-default {
+            border: 0;
+        }
+    }
+    .#{$prefix}form-display-field.#{$prefix}form-display-field-default {
+        margin-top: round(($form-field-height - $form-display-field-line-height) / 2) !important;
+    }
+}
+
+.#{$prefix}container-messageinfo {
+    border: 1px solid lighten($base-color, 55%);
+    background: lighten($base-color, 61%);
+    padding: 10px 15px 10px 40px;
+    margin-bottom: $cmdbuildui-statuses-progressbar-margin-bottom;
+
+    &::before {
+        content: $fa-var-info-circle;
+        color: $base-color;
+        font-family: FontAwesome !important;
+        font-size: 2em;
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
+}

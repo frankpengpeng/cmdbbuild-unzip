@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<project
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+	
+    <parent>
+        <groupId>org.cmdbuild</groupId>
+        <artifactId>cmdbuild-test-main</artifactId>
+        <version>3-SNAPSHOT</version>
+    </parent>
+    
+    <artifactId>cmdbuild-test-web</artifactId>
+	
+    <properties>
+        <selenium.version>3.9.1</selenium.version>
+    </properties>	
+	
+    <!--
+    
+    README
+    
+    how to configure selenium grid for web driver:
+    
+    start selenium hub:
+    
+    $ java -jar selenium-server-standalone-3.9.1.jar -role hub
+    
+    start selenium node:
+    
+    $ java -Dwebdriver.chrome.driver=/path/to/chromedriver -jar selenium-server-standalone-3.9.1.jar -role node -hub http://localhost:4444/grid/register/  -browser browserName=chrome
+    
+    configure cmdbuild.test.webdriver with hub url (see logs of hub startup for url to use).
+    
+    how to configure local test settings:
+    
+    you can put many custom setting in your local ./m2/settings.xml, by using a custom profile:
+    
+    
+    <profiles>
+        <profile>
+            <id>my-profile</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                ## you may set this params to run test with existing cmdbuild instance; leave empty to start dedicated instance ##
+                <cmdbuild.test.base.url>http://localhost:8080/cmdbuild/</cmdbuild.test.base.url>
+                <cmdbuild.test.database.url>jdbc:postgresql://localhost:5432/cmdbuild_30</cmdbuild.test.database.url>
+                ## if this param is set to true, test is expected to wait in key points (for example, after a test failure) so that browser/server can be inspected manually ##
+                <cmdbuild.test.interactive>true</cmdbuild.test.interactive>
+                ## set custom sleep delay ##
+                <cmdbuild.test.delay>2000</cmdbuild.test.delay>
+                ## set web driver to use (es: remote webdriver url, CHROME, etc...) ##
+                <cmdbuild.test.webdriver>http://localhost:4444/wd/hub</cmdbuild.test.webdriver>
+                ## set my workstation hostname/ip addr; this is required if the selenium controlled browser is running on a different host, in which case the default 'localhost' won't work ##
+                <cmdbuild.test.my.hostname>10.0.0.106</cmdbuild.test.my.hostname>
+            </properties>
+        </profile>
+    </profiles>
+    
+    -->
+	
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-firefox-driver</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium.fluent</groupId>
+            <artifactId>fluent-selenium</artifactId>
+            <version>1.17</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>cmdbuild-utils-io</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>cmdbuild-test-rest</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.cmdbuild</groupId>
+            <artifactId>cmdbuild-client-rest</artifactId>
+            <version>3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>3.0.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>cmdbuild-test-framework</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+	
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <configuration> 
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>org.cmdbuild.test.framework.TestDatabaseBuilderRunListener</value>
+                        </property> 
+                    </properties>
+                </configuration>
+            </plugin>
+        </plugins>		
+    </build> 
+</project>

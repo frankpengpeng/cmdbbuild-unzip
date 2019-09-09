@@ -1,0 +1,153 @@
+.management .#{$prefix}form-display-field.#{$prefix}form-display-field-default {
+    margin-top: 0 !important;
+    min-height: 20px !important;
+    word-break: break-word;
+}
+.management .field-with-top-margin .#{$prefix}form-display-field.#{$prefix}form-display-field-default {
+    margin-top: 8px !important;
+}
+
+.#{$prefix}form-item-label-default .#{$prefix}form-item-label-help {
+    position: absolute;
+    right: 0;
+    cursor: help;
+}
+.#{$prefix}form-text-default.#{$prefix}form-textarea {
+    resize: vertical;
+}
+
+.#{$prefix}grid-cell-inner.#{$prefix}grid-cell-inner-treecolumn{
+    text-align: left !important;
+}
+
+.#{$prefix}grid-item-focused .#{$prefix}grid-cell-inner:before {
+    border: 0;
+}
+
+.full-eye {
+    background-image: url('../../resources/images/bim/eye.png');
+}
+.half-eye {
+    background-image: url('../../resources/images/bim/halfeye.png');
+}
+.gray-eye {
+    background-image: url('../../resources/images/bim/eye_bw.png');
+}
+
+.#{$prefix}tip .#{$prefix}tip-bodyWrap .#{$prefix}autocontainer-innerCt > *:last-child {
+    margin-bottom: 0;
+}
+.#{$prefix}tip .#{$prefix}tip-bodyWrap .#{$prefix}autocontainer-innerCt > *:first-child {
+    margin-top: 0;
+}
+
+.#{$prefix}toast  {
+    .#{$prefix}autocontainer-innerCt {
+        word-break: break-word;
+    }
+}
+
+.#{$prefix}field.#{$prefix}resizable {
+    .#{$prefix}form-text-field-body.#{$prefix}form-textarea-body {
+        display: table-row;
+        width: 100%;
+    }
+}
+
+/**
+ * Management Light Tab Panel
+ */
+@include extjs-tab-panel-ui(
+    $ui: 'managementlighttabpanel',
+
+    // bar
+    $ui-bar-background-color: #FFF,
+    $ui-bar-border-color: $base-color,
+    $ui-bar-border-width: 0 0 1px 0 !important,
+
+    // tab border
+    $ui-tab-border-width: 1px,
+    $ui-tab-border-color: mix(#000, $neutral-light-color, 10%) mix(#000, $neutral-light-color, 10%) $base-color mix(#000, $neutral-light-color, 10%),
+    $ui-tab-border-color-focus: mix(#000, $neutral-light-color, 10%) mix(#000, $neutral-light-color, 10%) $base-color mix(#000, $neutral-light-color, 10%),
+    $ui-tab-border-color-over: mix(#000, $neutral-light-color, 10%) mix(#000, $neutral-light-color, 10%) $base-color mix(#000, $neutral-light-color, 10%),
+    $ui-tab-border-color-focus-over: mix(#000, $neutral-light-color, 10%) mix(#000, $neutral-light-color, 10%) $base-color mix(#000, $neutral-light-color, 10%),
+    $ui-tab-border-color-disabled: mix(#000, $neutral-light-color, 10%) mix(#000, $neutral-light-color, 10%) $base-color mix(#000, $neutral-light-color, 10%),
+    $ui-tab-border-color-active: $base-color $base-color #FFF $base-color,
+    $ui-tab-border-color-focus-active: $base-color $base-color #FFF $base-color,
+
+    // tab font color
+    $ui-tab-color: mix(#FFF, $color, 40%),
+    $ui-tab-color-focus: mix(#FFF, $color, 40%),
+    $ui-tab-color-over: mix(#FFF, $color, 40%),
+    $ui-tab-color-focus-over: mix(#FFF, $color, 40%),
+    $ui-tab-color-disabled: mix(#FFF, $color, 60%),
+    $ui-tab-color-active: $base-color,
+    $ui-tab-color-focus-active: $base-color,
+    
+    // tab font weight
+    $ui-tab-font-weight-active: bold,
+    $ui-tab-font-weight-focus-active: bold,
+
+    // outline
+    $ui-tab-outline-width-focus: 0,
+
+    // tab padding
+    $ui-tab-padding: 4px 7px 4px 7px,
+
+    // tab background opacity
+    $ui-tab-background-opacity-over: .04,
+    $ui-tab-background-opacity-active: .06
+);
+
+@include extjs-panel-ui(
+    $ui: 'managementlighttabpanel'
+);
+
+/**
+ * Management menu
+ */
+@include extjs-menu-ui(
+    $ui: 'actionmenu',
+    $ui-glyph-color: $action-color,
+    $ui-item-active-background-color: $action-color
+);
+
+.#{$prefix}tab-bar-horizontal > .#{$prefix}tab-bar-body-managementlighttabpanel {
+    margin-bottom: -1px;
+}
+.#{$prefix}panel-body-managementlighttabpanel {
+    margin-top: -1px;
+}
+
+.#{$prefix}box-scroller-tab-bar-managementlighttabpanel {
+    color: mix(#FFF, $color, 40%);
+}
+
+// fix scrollbar color for Firefox
+* {
+    scrollbar-width: auto;
+    scrollbar-color: mix(#000, $neutral-light-color, 20%) mix(#000, $neutral-light-color, 2%);
+}
+
+.#{$prefix}panel-bold-header {
+    .#{$prefix}panel-header-title-default,
+    .#{$prefix}panel-header-title-administration {
+        font-weight: 600;
+    }
+}
+
+/** grid header **/
+.#{$prefix}grid.import-errors-grid {
+    .#{$prefix}panel-header {
+        background-color: lighten($neutral-color, 12%);
+        .#{$prefix}panel-header-title-default {
+            color: $grid-grouped-title-color;
+        }
+    }
+}
+
+.#{$prefix}grid-cell.#{$prefix}numericcell {
+    .#{$prefix}cell-content {
+        text-align: right;
+    }
+}

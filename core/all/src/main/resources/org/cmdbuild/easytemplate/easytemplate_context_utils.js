@@ -1,0 +1,22 @@
+
+function convertValue(value) {
+    if(value && typeof value === 'object'){
+        value = value["Id"];
+    }
+    return value;
+}
+
+function evalJsSubcontext(context, subcontextExpr, expr) {
+    context = subcontextExpr ? (context[subcontextExpr] || {}) : context;
+    while (true) {
+        if (context[expr]) {
+            return convertValue(context[expr]);
+        } else if (expr && expr.match(/^[^.]+[.][^.]+.*$/)) {
+            var part = expr.replace(/^([^.]+)[.](.+)$/, '$1');
+            expr = expr.replace(/^([^.]+)[.](.+)$/, '$2');
+            context = context[part] || {};
+        } else {
+            return null;
+        }
+    }
+}

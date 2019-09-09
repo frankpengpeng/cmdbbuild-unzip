@@ -1,0 +1,18 @@
+.attachments-grid-action {
+    margin: 0 3px;
+}
+.tasks-grid-action {
+    // margin: 0 3px;
+    color: $administration-action-color
+}
+.tasks-grid-action-play {
+    // margin: 0 3px;
+    color: #33CC00;
+}
+.tasks-grid-action-stop {
+    // margin: 0 3px;
+    color: #f81503;
+}
+.tasks-grid-action-disabled{
+    color: '#999999'!important;
+}

@@ -1,0 +1,115 @@
+Ext.define('CMDBuildUI.view.administration.content.emails.queue.Grid', {
+    extend: 'Ext.grid.Panel',
+
+    requires: [
+        'CMDBuildUI.view.administration.content.emails.queue.GridController',
+        'CMDBuildUI.view.administration.content.emails.queue.GridModel'
+    ],
+    alias: 'widget.administration-content-emails-queue-grid',
+    controller: 'administration-content-emails-queue-grid',
+    viewModel: {
+        type: 'administration-content-emails-queue-grid'
+    },
+    autoScroll: 'y',
+    disableSelection: true,
+    tbar: [{
+        xtype: 'button',
+        iconCls: 'x-fa fa-pause',
+        ui: 'administration-action-small',
+        text: CMDBuildUI.locales.Locales.administration.tasks.tooltips.stop,
+        localized:{
+            text: 'CMDBuildUI.locales.Locales.administration.tasks.tooltips.stop'
+        },
+        bind: {
+            hidden: '{!queueEnabled}'
+        },
+        listeners: {
+            click: 'onActiveStop'
+        }
+    },{
+        xtype: 'button',
+        iconCls: 'x-fa fa-play',
+        text: CMDBuildUI.locales.Locales.administration.tasks.tooltips.start,
+        localized:{
+            text: 'CMDBuildUI.locales.Locales.administration.tasks.tooltips.start'
+        },
+        ui: 'administration-action-small',
+        bind: {
+            hidden: '{queueEnabled}'
+        },
+        listeners: {
+            click: 'onActiveStart'
+        }
+    }],
+    forceFit: true,
+    loadMask: true,
+    bind: {
+        store: '{gridDataStore}'
+    },
+    columns: [{
+        dataIndex: 'status',
+        align: 'center',
+        minWidth: 30,
+        maxWidth: 30,
+        sortable: false,
+        menuDisabled: true,
+        renderer: function (value) {
+            switch (value) {
+                case 'outgoing':
+                    return '<span class="x-fa fa-hourglass-half" data-qtip="' + CMDBuildUI.locales.Locales.administration.emails.outgoing + '" style="color:#FFCC00"></span>';
+                case 'error':
+                    return '<span class="x-fa fa-exclamation-triangle" data-qtip="' + CMDBuildUI.locales.Locales.administration.common.messages.error + '" style="color:#800000"></span>';
+                case 'sent':
+                    return '<span class="x-fa fa-square" data-qtip="' + CMDBuildUI.locales.Locales.administration.emails.sent + '" style="color:#008000"></span>';
+                default:
+                    break;
+            }
+        }
+    }, {
+        text: CMDBuildUI.locales.Locales.administration.emails.from,
+        localized: {
+            text: 'CMDBuildUI.locales.Locales.administration.emails.from'
+        },
+        dataIndex: 'from',
+        align: 'left',
+        flex: 1
+    }, {
+        text: CMDBuildUI.locales.Locales.administration.emails.to,
+        localized: {
+            text: 'CMDBuildUI.locales.Locales.administration.emails.to'
+        },
+        dataIndex: 'to',
+        align: 'left',
+        flex: 1
+    }, {
+        text: CMDBuildUI.locales.Locales.administration.emails.subject,
+        localized: {
+            text: 'CMDBuildUI.locales.Locales.administration.emails.subject'
+        },
+        dataIndex: 'subject',
+        align: 'left',
+        flex: 2
+    }, {
+        text: CMDBuildUI.locales.Locales.administration.emails.date,
+        localized: {
+            text: 'CMDBuildUI.locales.Locales.administration.emails.date'
+        },
+        dataIndex: 'date',
+        align: 'left',
+        minWidth: 150,
+        maxWidth: 150,
+        renderer: Ext.util.Format.dateRenderer('d/m/Y H:i:s')
+    }, {
+        xtype: 'actioncolumn',
+        minWidth: 30,
+        maxWidth: 30,
+        align: 'center',
+        items: [{
+            iconCls: 'x-fa fa-paper-plane',
+            getTip: function () {
+                return CMDBuildUI.locales.Locales.administration.emails.send;
+            },
+            handler: 'onItemSendClick'
+        }]
+    }]
+});

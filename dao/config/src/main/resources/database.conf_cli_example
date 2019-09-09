@@ -1,0 +1,13 @@
+db.url=jdbc\:postgresql\://localhost\:5432/cmdbuild_30
+
+#default user
+db.username=cmdbuild
+db.password=cmdbuild
+
+#limited user (usually the same as default user)
+#org.cmdbuild.dao.config.limitedUser.username=cmdbuild
+#org.cmdbuild.dao.config.limitedUser.password=cmdbuild
+
+#admin user (used for create db, drop db)
+org.cmdbuild.dao.config.superUser.username=postgres
+org.cmdbuild.dao.config.superUser.password=password

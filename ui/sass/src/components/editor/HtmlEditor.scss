@@ -1,0 +1,8 @@
+.#{$prefix}html-editor-tb .#{$prefix}edit-clearhtml,
+.#{$prefix}menu-item div.#{$prefix}edit-clearhtml {
+    @include font-icon(($fa-var-eraser $html-editor-glyph-font-size $font-icon-font-family));
+    background: none;
+}
+.x-form-trigger-wrap-invalid {
+    border-color: #cf4c35;
+}

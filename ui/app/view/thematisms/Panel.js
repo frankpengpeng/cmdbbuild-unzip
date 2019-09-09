@@ -1,0 +1,66 @@
+
+Ext.define('CMDBuildUI.view.thematisms.Panel', {
+    extend: 'Ext.form.Panel',
+
+    requires: [
+        'CMDBuildUI.view.thematisms.PanelController',
+        'CMDBuildUI.view.thematisms.PanelModel'
+    ],
+
+    alias: 'widget.thematisms-panel',
+    controller: 'thematisms-panel',
+    viewModel: {
+        type: 'thematisms-panel'
+    },
+
+    scrollable: true,
+
+    fieldDefaults: CMDBuildUI.util.helper.FormHelper.fieldDefaults,
+    ui: 'managementlighttabpanel',
+
+    fbar: [{
+        xtype: 'button',
+        reference: 'applybutton',
+        itemId: 'applybutton',
+        text: CMDBuildUI.locales.Locales.common.actions.apply,
+        ui: 'management-action-small',
+        localized: {
+            text: 'CMDBuildUI.locales.Locales.common.actions.apply'
+        },
+        autoEl: {
+            'data-testid': 'filters-panel-applybutton'
+        },
+        disabled: true,
+        bind: {
+            disabled: '{buttonsDisabled}'
+        }
+    }, {
+        xtype: 'button',
+        reference: 'savebutton',
+        itemId: 'savebutton',
+        text: CMDBuildUI.locales.Locales.common.actions.saveandapply,
+        ui: 'management-action-small',
+        localized: {
+            text: 'CMDBuildUI.locales.Locales.common.actions.saveandapply'
+        },
+        autoEl: {
+            'data-testid': 'filters-panel-savebutton'
+        },
+        disabled: true,
+        bind: {
+            disabled: '{buttonsDisabled}'
+        }
+    }, {
+        xtype: 'button',
+        reference: 'cancelbutton',
+        itemId: 'cancelbutton',
+        ui: 'secondary-action-small',
+        text: CMDBuildUI.locales.Locales.common.actions.cancel,
+        localized: {
+            text: 'CMDBuildUI.locales.Locales.common.actions.cancel'
+        },
+        autoEl: {
+            'data-testid': 'filters-panel-cancelbutton'
+        }
+    }]
+});

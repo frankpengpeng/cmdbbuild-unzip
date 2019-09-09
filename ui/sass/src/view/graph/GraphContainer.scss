@@ -1,0 +1,11 @@
+.relgraph-tip {
+    padding: 5px;
+    color: #fff;
+    text-align: center;
+    &.relgraph-tip-node {
+        background-color: $base-color;
+    }
+    &.relgraph-tip-relation {
+        background-color: $tip-background-color;
+    }
+}

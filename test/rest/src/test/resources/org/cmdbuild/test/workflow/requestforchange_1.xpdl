@@ -1,0 +1,998 @@
+<?xml version="1.0" encoding="UTF-8"?><Package xmlns="http://www.wfmc.org/2008/XPDL2.1" xmlns:xpdl="http://www.wfmc.org/2008/XPDL2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Id="Package_requestforchange" xsi:schemaLocation="http://www.wfmc.org/2008/XPDL2.1 http://www.wfmc.org/standards/docs/bpmnxpdl_31.xsd">
+    <PackageHeader>
+        <XPDLVersion>2.1</XPDLVersion>
+        <Vendor/>
+        <Created/>
+    </PackageHeader>
+    <Script Type="text/java"/>
+    <TypeDeclarations>
+        <TypeDeclaration Id="Reference">
+            <ExternalReference location="org.cmdbuild.workflow.type.ReferenceType"/>
+        </TypeDeclaration>
+        <TypeDeclaration Id="References">
+            <ExternalReference location="org.cmdbuild.workflow.type.ReferenceType&lt;&gt;"/>
+        </TypeDeclaration>
+        <TypeDeclaration Id="Lookup">
+            <ExternalReference location="org.cmdbuild.workflow.type.LookupType"/>
+        </TypeDeclaration>
+        <TypeDeclaration Id="Lookups">
+            <ExternalReference location="org.cmdbuild.workflow.type.LookupType&lt;&gt;"/>
+        </TypeDeclaration>
+    </TypeDeclarations>
+    <Participants>
+        <Participant Id="SuperUser">
+            <ParticipantType Type="ROLE"/>
+        </Participant>
+        <Participant Id="Helpdesk">
+            <ParticipantType Type="ROLE"/>
+        </Participant>
+        <Participant Id="ChangeManager">
+            <ParticipantType Type="ROLE"/>
+        </Participant>
+        <Participant Id="Specialist">
+            <ParticipantType Type="ROLE"/>
+        </Participant>
+        <Participant Id="System">
+            <ParticipantType Type="SYSTEM"/>
+        </Participant>
+    </Participants>
+    <Pools>
+        <Pool BoundaryVisible="true" Id="Package_requestforchange_pool1" MainPool="true" Name="Process_requestforchange" Orientation="HORIZONTAL" Process="Process_requestforchange">
+            <Lanes>
+                <Lane Id="Package_requestforchange_pool1_lan1" Name="Helpdesk">
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="220,220,220" IsVisible="true" ToolId="JaWE"/>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="220,220,220" IsVisible="true" ToolId="JaWE"/>
+                    </NodeGraphicsInfos>
+                    <Performers>
+                        <Performer>Helpdesk</Performer>
+                    </Performers>
+                </Lane>
+                <Lane Id="Package_requestforchange_pool1_lan2" Name="ChangeManager">
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="220,220,220" IsVisible="true" ToolId="JaWE"/>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="220,220,220" IsVisible="true" ToolId="JaWE"/>
+                    </NodeGraphicsInfos>
+                    <Performers>
+                        <Performer>ChangeManager</Performer>
+                    </Performers>
+                </Lane>
+                <Lane Id="Package_requestforchange_pool1_lan3" Name="Specialist">
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="220,220,220" IsVisible="true" ToolId="JaWE"/>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="220,220,220" IsVisible="true" ToolId="JaWE"/>
+                    </NodeGraphicsInfos>
+                    <Performers>
+                        <Performer>Specialist</Performer>
+                    </Performers>
+                </Lane>
+            </Lanes>
+            <NodeGraphicsInfos>
+                <NodeGraphicsInfo BorderColor="0,0,0" FillColor="255,255,215" IsVisible="true" ToolId="JaWE"/>
+            </NodeGraphicsInfos>
+        </Pool>
+    </Pools>
+    <WorkflowProcesses>
+        <WorkflowProcess AccessLevel="PUBLIC" Id="Process_requestforchange">
+            <ProcessHeader/>
+            <DataFields>
+                <DataField Id="RiskAnalysisRequest" IsArray="false">
+                    <DataType>
+                        <BasicType Type="BOOLEAN"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="CostAnalysisRequest" IsArray="false">
+                    <DataType>
+                        <BasicType Type="BOOLEAN"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="ImpactAnalysisRequest" IsArray="false">
+                    <DataType>
+                        <BasicType Type="BOOLEAN"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="RFCStartDate" IsArray="false">
+                    <DataType>
+                        <BasicType Type="DATETIME"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="ExecutionEndDate" IsArray="false">
+                    <DataType>
+                        <BasicType Type="DATETIME"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="ExecutionStartDate" IsArray="false">
+                    <DataType>
+                        <BasicType Type="DATETIME"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="RFCEndDate" IsArray="false">
+                    <DataType>
+                        <BasicType Type="DATETIME"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="RequestNumber" IsArray="false">
+                    <DataType>
+                        <BasicType Type="INTEGER"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="ActionsPerformed" IsArray="false">
+                    <DataType>
+                        <BasicType Type="STRING"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="ImpactAnalysisResult" IsArray="false">
+                    <DataType>
+                        <BasicType Type="STRING"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="RiskAnalysisResult" IsArray="false">
+                    <DataType>
+                        <BasicType Type="STRING"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="Code" IsArray="false">
+                    <DataType>
+                        <BasicType Type="STRING"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="RFCDescription" IsArray="false">
+                    <DataType>
+                        <BasicType Type="STRING"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="Description" IsArray="false">
+                    <DataType>
+                        <BasicType Type="STRING"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="CostAnalysisResult" IsArray="false">
+                    <DataType>
+                        <BasicType Type="STRING"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="PlannedActions" IsArray="false">
+                    <DataType>
+                        <BasicType Type="STRING"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="Notes" IsArray="false">
+                    <DataType>
+                        <BasicType Type="STRING"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="FlowStatus" IsArray="false">
+                    <DataType>
+                        <DeclaredType Id="Lookup"/>
+                    </DataType>
+                </DataField>
+                <DataField Id="RFCStatus" IsArray="false">
+                    <DataType>
+                        <DeclaredType Id="Lookup"/>
+                    </DataType>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="TRANSIENT" Value="false"/>
+                    </ExtendedAttributes>
+                </DataField>
+                <DataField Id="Category" IsArray="false">
+                    <DataType>
+                        <DeclaredType Id="Lookup"/>
+                    </DataType>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="TRANSIENT" Value="false"/>
+                    </ExtendedAttributes>
+                </DataField>
+                <DataField Id="FormalEvaluation" IsArray="false">
+                    <DataType>
+                        <DeclaredType Id="Lookup"/>
+                    </DataType>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="TRANSIENT" Value="false"/>
+                    </ExtendedAttributes>
+                </DataField>
+                <DataField Id="RFCPriority" IsArray="false">
+                    <DataType>
+                        <DeclaredType Id="Lookup"/>
+                    </DataType>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="TRANSIENT" Value="false"/>
+                    </ExtendedAttributes>
+                </DataField>
+                <DataField Id="Decision" IsArray="false">
+                    <DataType>
+                        <DeclaredType Id="Lookup"/>
+                    </DataType>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="TRANSIENT" Value="false"/>
+                    </ExtendedAttributes>
+                </DataField>
+                <DataField Id="FinalResult" IsArray="false">
+                    <DataType>
+                        <DeclaredType Id="Lookup"/>
+                    </DataType>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="TRANSIENT" Value="false"/>
+                    </ExtendedAttributes>
+                </DataField>
+                <DataField Id="Requester" IsArray="false">
+                    <DataType>
+                        <DeclaredType Id="Reference"/>
+                    </DataType>
+                    <Length>Requester</Length>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="TRANSIENT" Value="false"/>
+                    </ExtendedAttributes>
+                </DataField>
+            </DataFields>
+            <Activities>
+                <Activity Id="RegisterRFC" Name="Register RFC">
+                    <Implementation>
+                        <No/>
+                    </Implementation>
+                    <Performers>
+                        <Performer>Helpdesk</Performer>
+                    </Performers>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="XFORMS_FILE"/>
+                        <ExtendedAttribute Name="VariableToProcess_UPDATEREQUIRED" Value="Requester"/>
+                        <ExtendedAttribute Name="VariableToProcess_UPDATEREQUIRED" Value="RFCDescription"/>
+                    </ExtendedAttributes>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="187,247,190" Height="60" IsVisible="true" LaneId="Package_requestforchange_pool1_lan1" ToolId="JaWE" Width="90">
+                            <Coordinates XCoordinate="135" YCoordinate="42"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="SYS010" Name="SYS010">
+                    <Implementation>
+                        <Task>
+                            <TaskScript>
+                                <Script ScriptType="text/java">RFCStartDate = Calendar.getInstance();
+RequestNumber = cmdb.callFunction("cmwf_getRFCNumber").execute().get("RFCNumber");
+Description = "RFC n. " + RequestNumber.toString() + " created by " + Requester.getDescription() + " date " + RFCStartDate.getTime().toString();
+RFCStatus = cmdb.selectLookupByCode("RFC status", "REC_RFC");</Script>
+                            </TaskScript>
+                        </Task>
+                    </Implementation>
+                    <Performers>
+                        <Performer/>
+                    </Performers>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="255,255,204" Height="60" IsVisible="true" LaneId="Package_requestforchange_pool1_lan1" ToolId="JaWE" Width="90">
+                            <Coordinates XCoordinate="262" YCoordinate="41"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="FormalEvaluation" Name="Formal evaluation">
+                    <Implementation>
+                        <No/>
+                    </Implementation>
+                    <Performers>
+                        <Performer>ChangeManager</Performer>
+                    </Performers>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="XFORMS_FILE"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCStartDate"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RequestNumber"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="Requester"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCDescription"/>
+                        <ExtendedAttribute Name="VariableToProcess_UPDATEREQUIRED" Value="Category"/>
+                        <ExtendedAttribute Name="VariableToProcess_UPDATEREQUIRED" Value="FormalEvaluation"/>
+                        <ExtendedAttribute Name="VariableToProcess_UPDATE" Value="ImpactAnalysisRequest"/>
+                        <ExtendedAttribute Name="VariableToProcess_UPDATE" Value="CostAnalysisRequest"/>
+                        <ExtendedAttribute Name="VariableToProcess_UPDATE" Value="RiskAnalysisRequest"/>
+                        <ExtendedAttribute Name="VariableToProcess_UPDATEREQUIRED" Value="RFCPriority"/>
+                        <ExtendedAttribute Name="openAttachment" Value="ButtonLabel=&quot;Attachments&quot;"/>
+                        <ExtendedAttribute Name="createModifyCard" Value="ButtonLabel=&quot;Requester card&quot;&#13;&#10;Reference=Requester&#13;&#10;ReadOnly=1"/>
+                    </ExtendedAttributes>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="187,247,190" Height="60" IsVisible="true" LaneId="Package_requestforchange_pool1_lan2" ToolId="JaWE" Width="90">
+                            <Coordinates XCoordinate="261" YCoordinate="67"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="Process_requestforchange_act2">
+                    <Event>
+                        <EndEvent Result="None"/>
+                    </Event>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="236,120,98" Height="31" IsVisible="true" LaneId="Package_requestforchange_pool1_lan2" ToolId="JaWE" Width="31">
+                            <Coordinates XCoordinate="1658" YCoordinate="84"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="Process_requestforchange_act1">
+                    <Event>
+                        <StartEvent Trigger="None"/>
+                    </Event>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="102,204,51" Height="31" IsVisible="true" LaneId="Package_requestforchange_pool1_lan1" ToolId="JaWE" Width="31">
+                            <Coordinates XCoordinate="68" YCoordinate="54"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="SYS020" Name="SYS020">
+                    <Implementation>
+                        <Task>
+                            <TaskScript>
+                                <Script ScriptType="text/java">CurrentUser = cmdb.cardFrom(_CurrentUser);
+Employees = cmdb.queryClass("Employee").with("Email", CurrentUser.get("Email")).fetch();
+if (Employees.size() &gt; 0) {
+	Employee = Employees.get(0);
+	cmdb.newRelation("RFCChangeManager").withCard1("RequestForChange", ProcessId.intValue()).withCard2("Employee", Employee.getId()).create();
+}
+RFCStatus = cmdb.selectLookupByCode("RFC status", "REQ_DOC");</Script>
+                            </TaskScript>
+                        </Task>
+                    </Implementation>
+                    <Performers>
+                        <Performer/>
+                    </Performers>
+                    <TransitionRestrictions>
+                        <TransitionRestriction>
+                            <Split Type="Parallel">
+                                <TransitionRefs>
+                                    <TransitionRef Id="Process_requestforchange_tra9"/>
+                                    <TransitionRef Id="Process_requestforchange_tra5"/>
+                                </TransitionRefs>
+                            </Split>
+                        </TransitionRestriction>
+                    </TransitionRestrictions>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="255,255,204" Height="60" IsVisible="true" LaneId="Package_requestforchange_pool1_lan2" ToolId="JaWE" Width="90">
+                            <Coordinates XCoordinate="385" YCoordinate="66"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="RFCImpactAnalysis" Name="RFC impact analysis">
+                    <Implementation>
+                        <No/>
+                    </Implementation>
+                    <Performers>
+                        <Performer>Specialist</Performer>
+                    </Performers>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="XFORMS_FILE"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCStartDate"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RequestNumber"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="Requester"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCDescription"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="Category"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCPriority"/>
+                        <ExtendedAttribute Name="VariableToProcess_UPDATEREQUIRED" Value="ImpactAnalysisResult"/>
+                        <ExtendedAttribute Name="openAttachment" Value="ButtonLabel=&quot;Attachments&quot;"/>
+                    </ExtendedAttributes>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="187,247,190" Height="60" IsVisible="true" LaneId="Package_requestforchange_pool1_lan3" ToolId="JaWE" Width="90">
+                            <Coordinates XCoordinate="635" YCoordinate="8"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="RFCRiskAnalysis" Name="RFC risk analysis">
+                    <Implementation>
+                        <No/>
+                    </Implementation>
+                    <Performers>
+                        <Performer>Specialist</Performer>
+                    </Performers>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="XFORMS_FILE"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCStartDate"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RequestNumber"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="Requester"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCDescription"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="Category"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCPriority"/>
+                        <ExtendedAttribute Name="VariableToProcess_UPDATEREQUIRED" Value="RiskAnalysisResult"/>
+                        <ExtendedAttribute Name="openAttachment" Value="ButtonLabel=&quot;Attachments&quot;"/>
+                    </ExtendedAttributes>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="187,247,190" Height="60" IsVisible="true" LaneId="Package_requestforchange_pool1_lan3" ToolId="JaWE" Width="90">
+                            <Coordinates XCoordinate="633" YCoordinate="254"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="RFCCostAnalysis" Name="RFC cost analysis">
+                    <Implementation>
+                        <No/>
+                    </Implementation>
+                    <Performers>
+                        <Performer>Specialist</Performer>
+                    </Performers>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="XFORMS_FILE"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCStartDate"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RequestNumber"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="Requester"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCDescription"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="Category"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCPriority"/>
+                        <ExtendedAttribute Name="VariableToProcess_UPDATEREQUIRED" Value="CostAnalysisResult"/>
+                        <ExtendedAttribute Name="openAttachment" Value="ButtonLabel=&quot;Attachments&quot;"/>
+                    </ExtendedAttributes>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="187,247,190" Height="60" IsVisible="true" LaneId="Package_requestforchange_pool1_lan3" ToolId="JaWE" Width="90">
+                            <Coordinates XCoordinate="634" YCoordinate="123"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="SYS030.1">
+                    <Implementation>
+                        <Task>
+                            <TaskScript>
+                                <Script ScriptType="text/java">RFCStatus = cmdb.selectLookupByCode("RFC status", "PRE_DOC");</Script>
+                            </TaskScript>
+                        </Task>
+                    </Implementation>
+                    <Performers>
+                        <Performer/>
+                    </Performers>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="255,255,204" Height="60" IsVisible="true" LaneId="Package_requestforchange_pool1_lan3" ToolId="JaWE" Width="90">
+                            <Coordinates XCoordinate="771" YCoordinate="10"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="SYS030.2">
+                    <Implementation>
+                        <Task>
+                            <TaskScript>
+                                <Script ScriptType="text/java">RFCStatus = cmdb.selectLookupByCode("RFC status", "PRE_DOC");</Script>
+                            </TaskScript>
+                        </Task>
+                    </Implementation>
+                    <Performers>
+                        <Performer/>
+                    </Performers>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="255,255,204" Height="60" IsVisible="true" LaneId="Package_requestforchange_pool1_lan3" ToolId="JaWE" Width="90">
+                            <Coordinates XCoordinate="771" YCoordinate="125"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="SYS030.3">
+                    <Implementation>
+                        <Task>
+                            <TaskScript>
+                                <Script ScriptType="text/java">RFCStatus = cmdb.selectLookupByCode("RFC status", "PRE_DOC");</Script>
+                            </TaskScript>
+                        </Task>
+                    </Implementation>
+                    <Performers>
+                        <Performer/>
+                    </Performers>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="255,255,204" Height="60" IsVisible="true" LaneId="Package_requestforchange_pool1_lan3" ToolId="JaWE" Width="90">
+                            <Coordinates XCoordinate="768" YCoordinate="253"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="FinalEvaluation" Name="Final evaluation">
+                    <Implementation>
+                        <No/>
+                    </Implementation>
+                    <Performers>
+                        <Performer>ChangeManager</Performer>
+                    </Performers>
+                    <TransitionRestrictions>
+                        <TransitionRestriction>
+                            <Join Type="Exclusive"/>
+                        </TransitionRestriction>
+                    </TransitionRestrictions>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="XFORMS_FILE"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCStartDate"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RequestNumber"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="Requester"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCDescription"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="Category"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCPriority"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="ImpactAnalysisResult"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="CostAnalysisResult"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RiskAnalysisResult"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="ActionsPerformed"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="ExecutionEndDate"/>
+                        <ExtendedAttribute Name="VariableToProcess_UPDATEREQUIRED" Value="FinalResult"/>
+                        <ExtendedAttribute Name="openAttachment" Value="ButtonLabel=&quot;Attachments&quot;"/>
+                    </ExtendedAttributes>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="187,247,190" Height="60" IsVisible="true" LaneId="Package_requestforchange_pool1_lan2" ToolId="JaWE" Width="90">
+                            <Coordinates XCoordinate="1400" YCoordinate="67"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="Process_requestforchange_act8">
+                    <Route GatewayType="Parallel"/>
+                    <TransitionRestrictions>
+                        <TransitionRestriction>
+                            <Join Type="Parallel"/>
+                        </TransitionRestriction>
+                    </TransitionRestrictions>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="255,229,124" Height="43" IsVisible="true" LaneId="Package_requestforchange_pool1_lan3" ToolId="JaWE" Width="43">
+                            <Coordinates XCoordinate="1008" YCoordinate="201"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="Decision" Name="Decision">
+                    <Implementation>
+                        <No/>
+                    </Implementation>
+                    <Performers>
+                        <Performer>ChangeManager</Performer>
+                    </Performers>
+                    <TransitionRestrictions>
+                        <TransitionRestriction>
+                            <Split Type="Parallel">
+                                <TransitionRefs>
+                                    <TransitionRef Id="Process_requestforchange_tra18"/>
+                                    <TransitionRef Id="Process_requestforchange_tra17"/>
+                                </TransitionRefs>
+                            </Split>
+                        </TransitionRestriction>
+                    </TransitionRestrictions>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="XFORMS_FILE"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCStartDate"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RequestNumber"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="Requester"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCDescription"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="Category"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCPriority"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="ImpactAnalysisResult"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="CostAnalysisResult"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RiskAnalysisResult"/>
+                        <ExtendedAttribute Name="VariableToProcess_UPDATEREQUIRED" Value="Decision"/>
+                        <ExtendedAttribute Name="openAttachment" Value="ButtonLabel=&quot;Attachments&quot;"/>
+                    </ExtendedAttributes>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="187,247,190" Height="60" IsVisible="true" LaneId="Package_requestforchange_pool1_lan2" ToolId="JaWE" Width="90">
+                            <Coordinates XCoordinate="984" YCoordinate="73"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="SYS040" Name="SYS040">
+                    <Implementation>
+                        <Task>
+                            <TaskScript>
+                                <Script ScriptType="text/java">RFCStatus = cmdb.selectLookupByCode("RFC status", "REQ_EXE");</Script>
+                            </TaskScript>
+                        </Task>
+                    </Implementation>
+                    <Performers>
+                        <Performer/>
+                    </Performers>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="255,255,204" Height="60" IsVisible="true" LaneId="Package_requestforchange_pool1_lan2" ToolId="JaWE" Width="90">
+                            <Coordinates XCoordinate="1150" YCoordinate="72"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="StartExecution" Name="Start execution">
+                    <Implementation>
+                        <No/>
+                    </Implementation>
+                    <Performers>
+                        <Performer>Specialist</Performer>
+                    </Performers>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="XFORMS_FILE"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCStartDate"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RequestNumber"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="Requester"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCDescription"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="Category"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCPriority"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="ImpactAnalysisResult"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="CostAnalysisResult"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RiskAnalysisResult"/>
+                        <ExtendedAttribute Name="VariableToProcess_UPDATEREQUIRED" Value="PlannedActions"/>
+                        <ExtendedAttribute Name="openAttachment" Value="ButtonLabel=&quot;Attachments&quot;"/>
+                    </ExtendedAttributes>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="187,247,190" Height="60" IsVisible="true" LaneId="Package_requestforchange_pool1_lan3" ToolId="JaWE" Width="90">
+                            <Coordinates XCoordinate="1150" YCoordinate="186"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="SYS050" Name="SYS050">
+                    <Implementation>
+                        <Task>
+                            <TaskScript>
+                                <Script ScriptType="text/java">RFCStatus = cmdb.selectLookupByCode("RFC status", "IN_EXE");
+ExecutionStartDate = Calendar.getInstance();</Script>
+                            </TaskScript>
+                        </Task>
+                    </Implementation>
+                    <Performers>
+                        <Performer/>
+                    </Performers>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="255,255,204" Height="60" IsVisible="true" LaneId="Package_requestforchange_pool1_lan3" ToolId="JaWE" Width="90">
+                            <Coordinates XCoordinate="1280" YCoordinate="18"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="EndExecution" Name="End execution">
+                    <Implementation>
+                        <No/>
+                    </Implementation>
+                    <Performers>
+                        <Performer>Specialist</Performer>
+                    </Performers>
+                    <ExtendedAttributes>
+                        <ExtendedAttribute Name="XFORMS_FILE"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCStartDate"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RequestNumber"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="Requester"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCDescription"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="Category"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RFCPriority"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="ImpactAnalysisResult"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="CostAnalysisResult"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="RiskAnalysisResult"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="ExecutionStartDate"/>
+                        <ExtendedAttribute Name="VariableToProcess_VIEW" Value="PlannedActions"/>
+                        <ExtendedAttribute Name="VariableToProcess_UPDATEREQUIRED" Value="ActionsPerformed"/>
+                        <ExtendedAttribute Name="openAttachment" Value="ButtonLabel=&quot;Attachments&quot;"/>
+                    </ExtendedAttributes>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="187,247,190" Height="60" IsVisible="true" LaneId="Package_requestforchange_pool1_lan3" ToolId="JaWE" Width="90">
+                            <Coordinates XCoordinate="1279" YCoordinate="190"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="SYS060" Name="SYS060">
+                    <Implementation>
+                        <Task>
+                            <TaskScript>
+                                <Script ScriptType="text/java">CurrentUser = cmdb.cardFrom(_CurrentUser);
+Employees = cmdb.queryClass("Employee").with("Email", CurrentUser.get("Email")).fetch();
+if (Employees.size() &gt; 0) {
+	Employee = Employees.get(0); 
+	cmdb.newRelation("RFCExecutor").withCard1("RequestForChange", ProcessId.intValue()).withCard2("Employee", Employee.getId()).create();
+}
+RFCStatus = cmdb.selectLookupByCode("RFC status", "OUT_EXE");
+ExecutionEndDate = Calendar.getInstance();</Script>
+                            </TaskScript>
+                        </Task>
+                    </Implementation>
+                    <Performers>
+                        <Performer/>
+                    </Performers>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="255,255,204" Height="60" IsVisible="true" LaneId="Package_requestforchange_pool1_lan3" ToolId="JaWE" Width="90">
+                            <Coordinates XCoordinate="1402" YCoordinate="22"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="SYS070" Name="SYS070">
+                    <Implementation>
+                        <Task>
+                            <TaskScript>
+                                <Script ScriptType="text/java">RFCEndDate = Calendar.getInstance();
+RFCStatus = cmdb.selectLookupByCode("RFC status", "CLOSED");</Script>
+                            </TaskScript>
+                        </Task>
+                    </Implementation>
+                    <Performers>
+                        <Performer/>
+                    </Performers>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="255,255,204" Height="60" IsVisible="true" LaneId="Package_requestforchange_pool1_lan2" ToolId="JaWE" Width="90">
+                            <Coordinates XCoordinate="1531" YCoordinate="67"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="Process_requestforchange_act5">
+                    <Route GatewayType="Exclusive"/>
+                    <TransitionRestrictions>
+                        <TransitionRestriction>
+                            <Split Type="Exclusive">
+                                <TransitionRefs>
+                                    <TransitionRef Id="Process_requestforchange_tra6"/>
+                                    <TransitionRef Id="Process_requestforchange_tra26"/>
+                                </TransitionRefs>
+                            </Split>
+                        </TransitionRestriction>
+                    </TransitionRestrictions>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="255,229,124" Height="43" IsVisible="true" LaneId="Package_requestforchange_pool1_lan3" ToolId="JaWE" Width="43">
+                            <Coordinates XCoordinate="525" YCoordinate="79"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="Process_requestforchange_act6">
+                    <Route GatewayType="Exclusive"/>
+                    <TransitionRestrictions>
+                        <TransitionRestriction>
+                            <Split Type="Exclusive">
+                                <TransitionRefs>
+                                    <TransitionRef Id="Process_requestforchange_tra7"/>
+                                    <TransitionRef Id="Process_requestforchange_tra27"/>
+                                </TransitionRefs>
+                            </Split>
+                        </TransitionRestriction>
+                    </TransitionRestrictions>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="255,229,124" Height="43" IsVisible="true" LaneId="Package_requestforchange_pool1_lan3" ToolId="JaWE" Width="43">
+                            <Coordinates XCoordinate="534" YCoordinate="199"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="Process_requestforchange_act7">
+                    <Route GatewayType="Exclusive"/>
+                    <TransitionRestrictions>
+                        <TransitionRestriction>
+                            <Split Type="Exclusive">
+                                <TransitionRefs>
+                                    <TransitionRef Id="Process_requestforchange_tra8"/>
+                                    <TransitionRef Id="Process_requestforchange_tra28"/>
+                                </TransitionRefs>
+                            </Split>
+                        </TransitionRestriction>
+                    </TransitionRestrictions>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="255,229,124" Height="43" IsVisible="true" LaneId="Package_requestforchange_pool1_lan3" ToolId="JaWE" Width="43">
+                            <Coordinates XCoordinate="537" YCoordinate="343"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="Process_requestforchange_act4">
+                    <Route GatewayType="Parallel"/>
+                    <TransitionRestrictions>
+                        <TransitionRestriction>
+                            <Split Type="Parallel">
+                                <TransitionRefs>
+                                    <TransitionRef Id="Process_requestforchange_tra13"/>
+                                    <TransitionRef Id="Process_requestforchange_tra14"/>
+                                    <TransitionRef Id="Process_requestforchange_tra15"/>
+                                </TransitionRefs>
+                            </Split>
+                        </TransitionRestriction>
+                    </TransitionRestrictions>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="255,229,124" Height="43" IsVisible="true" LaneId="Package_requestforchange_pool1_lan3" ToolId="JaWE" Width="43">
+                            <Coordinates XCoordinate="406" YCoordinate="199"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="Process_requestforchange_act3">
+                    <Route GatewayType="Exclusive"/>
+                    <TransitionRestrictions>
+                        <TransitionRestriction>
+                            <Join Type="Exclusive"/>
+                        </TransitionRestriction>
+                    </TransitionRestrictions>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="255,229,124" Height="43" IsVisible="true" LaneId="Package_requestforchange_pool1_lan3" ToolId="JaWE" Width="43">
+                            <Coordinates XCoordinate="904" YCoordinate="77"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="Process_requestforchange_act9">
+                    <Route GatewayType="Exclusive"/>
+                    <TransitionRestrictions>
+                        <TransitionRestriction>
+                            <Join Type="Exclusive"/>
+                        </TransitionRestriction>
+                    </TransitionRestrictions>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="255,229,124" Height="43" IsVisible="true" LaneId="Package_requestforchange_pool1_lan3" ToolId="JaWE" Width="43">
+                            <Coordinates XCoordinate="902" YCoordinate="200"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+                <Activity Id="Process_requestforchange_act10">
+                    <Route GatewayType="Exclusive"/>
+                    <TransitionRestrictions>
+                        <TransitionRestriction>
+                            <Join Type="Exclusive"/>
+                        </TransitionRestriction>
+                    </TransitionRestrictions>
+                    <NodeGraphicsInfos>
+                        <NodeGraphicsInfo BorderColor="0,0,0" FillColor="255,229,124" Height="43" IsVisible="true" LaneId="Package_requestforchange_pool1_lan3" ToolId="JaWE" Width="43">
+                            <Coordinates XCoordinate="888" YCoordinate="343"/>
+                        </NodeGraphicsInfo>
+                    </NodeGraphicsInfos>
+                </Activity>
+            </Activities>
+            <Transitions>
+                <Transition From="RegisterRFC" Id="Process_requestforchange_tra2" To="SYS010">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="SYS010" Id="Process_requestforchange_tra3" To="FormalEvaluation">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="Process_requestforchange_act1" Id="Process_requestforchange_tra1" To="RegisterRFC">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="FormalEvaluation" Id="Process_requestforchange_tra4" To="SYS020">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="SYS020" Id="Process_requestforchange_tra5" Name="Accepted" To="Process_requestforchange_act4">
+                    <Condition Type="CONDITION">"ACCEPTED".equalsIgnoreCase(FormalEvaluation.Code)</Condition>
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="Process_requestforchange_act5" Id="Process_requestforchange_tra6" Name="Impact" To="RFCImpactAnalysis">
+                    <Condition Type="CONDITION">ImpactAnalysisRequest.booleanValue()</Condition>
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="Process_requestforchange_act6" Id="Process_requestforchange_tra7" Name="Cost" To="RFCCostAnalysis">
+                    <Condition Type="CONDITION">CostAnalysisRequest.booleanValue()</Condition>
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="Process_requestforchange_act7" Id="Process_requestforchange_tra8" Name="Risk" To="RFCRiskAnalysis">
+                    <Condition Type="CONDITION">RiskAnalysisRequest.booleanValue()</Condition>
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="SYS020" Id="Process_requestforchange_tra9" Name="Rejected" To="FinalEvaluation">
+                    <Condition Type="CONDITION">"REJECTED".equalsIgnoreCase(FormalEvaluation.Code)</Condition>
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="255,0,0" IsVisible="true" Style="NO_ROUTING_ORTHOGONAL" ToolId="JaWE">
+                            <Coordinates XCoordinate="561" YCoordinate="166"/>
+                            <Coordinates XCoordinate="1407" YCoordinate="164"/>
+                        </ConnectorGraphicsInfo>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="RFCImpactAnalysis" Id="Process_requestforchange_tra10" To="SYS030.1">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="RFCCostAnalysis" Id="Process_requestforchange_tra11" To="SYS030.2">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="RFCRiskAnalysis" Id="Process_requestforchange_tra12" To="SYS030.3">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="Process_requestforchange_act8" Id="Process_requestforchange_tra16" To="Decision">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="Decision" Id="Process_requestforchange_tra17" Name="Execution" To="SYS040">
+                    <Condition Type="CONDITION">"APPROVED".equalsIgnoreCase(Decision.Code)</Condition>
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="Decision" Id="Process_requestforchange_tra18" Name="Not approved" To="FinalEvaluation">
+                    <Condition Type="CONDITION">"NOT_APPROVED".equalsIgnoreCase(Decision.Code)</Condition>
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="255,0,0" IsVisible="true" Style="NO_ROUTING_ORTHOGONAL" ToolId="JaWE">
+                            <Coordinates XCoordinate="1143" YCoordinate="187"/>
+                            <Coordinates XCoordinate="1394" YCoordinate="188"/>
+                        </ConnectorGraphicsInfo>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="SYS040" Id="Process_requestforchange_tra19" To="StartExecution">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="StartExecution" Id="Process_requestforchange_tra20" To="SYS050">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="SYS050" Id="Process_requestforchange_tra21" To="EndExecution">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="EndExecution" Id="Process_requestforchange_tra22" To="SYS060">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="SYS060" Id="Process_requestforchange_tra23" To="FinalEvaluation">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="FinalEvaluation" Id="Process_requestforchange_tra24" To="SYS070">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="SYS070" Id="Process_requestforchange_tra25" To="Process_requestforchange_act2">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="Process_requestforchange_act4" Id="Process_requestforchange_tra13" To="Process_requestforchange_act5">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="Process_requestforchange_act4" Id="Process_requestforchange_tra14" To="Process_requestforchange_act6">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="Process_requestforchange_act4" Id="Process_requestforchange_tra15" To="Process_requestforchange_act7">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="Process_requestforchange_act5" Id="Process_requestforchange_tra26" To="Process_requestforchange_act3">
+                    <Condition Type="OTHERWISE"/>
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="255,128,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="Process_requestforchange_act6" Id="Process_requestforchange_tra27" To="Process_requestforchange_act9">
+                    <Condition Type="OTHERWISE"/>
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="255,128,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="Process_requestforchange_act7" Id="Process_requestforchange_tra28" To="Process_requestforchange_act10">
+                    <Condition Type="OTHERWISE"/>
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="255,128,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="SYS030.1" Id="Process_requestforchange_tra29" To="Process_requestforchange_act3">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="SYS030.2" Id="Process_requestforchange_tra30" To="Process_requestforchange_act9">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="SYS030.3" Id="Process_requestforchange_tra31" To="Process_requestforchange_act10">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="Process_requestforchange_act10" Id="Process_requestforchange_tra32" To="Process_requestforchange_act8">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="Process_requestforchange_act9" Id="Process_requestforchange_tra33" To="Process_requestforchange_act8">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+                <Transition From="Process_requestforchange_act3" Id="Process_requestforchange_tra34" To="Process_requestforchange_act8">
+                    <ConnectorGraphicsInfos>
+                        <ConnectorGraphicsInfo FillColor="0,0,0" IsVisible="true" Style="NO_ROUTING_SPLINE" ToolId="JaWE"/>
+                    </ConnectorGraphicsInfos>
+                </Transition>
+            </Transitions>
+            <ExtendedAttributes>
+                <ExtendedAttribute Name="cmdbuildBindToClass" Value="RequestForChange"/>
+            </ExtendedAttributes>
+        </WorkflowProcess>
+    </WorkflowProcesses>
+    <ExtendedAttributes>
+        <ExtendedAttribute Name="EDITING_TOOL" Value="Together Workflow Editor"/>
+        <ExtendedAttribute Name="EDITING_TOOL_VERSION" Value="4.4-1-20120111-0622"/>
+        <ExtendedAttribute Name="JaWE_CONFIGURATION" Value="shark"/>
+    </ExtendedAttributes>
+</Package>

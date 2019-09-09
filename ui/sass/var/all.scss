@@ -1,0 +1,47 @@
+/*
+ * This is is imported by virtue of "sass.var" in "app.json".
+ */
+
+$enable-font-awesome: dynamic(true);
+
+ /**
+  * Base font weight
+  */
+$font-weight: dynamic(400);
+
+/**
+ * Forms
+ */
+$form-label-font-color: dynamic(mix(#FFF, $color, 30%));
+$form-label-font-weight: bold;
+$form-label-vertical-spacing: 0;
+
+/**
+ * Load mask opacity
+ */
+$loadmask-page-opacity: 0.35;
+
+/**
+ * Form item margin bottom
+ */
+$form-item-margin-bottom: dynamic(3px);
+
+/**
+* Grid outline
+*/
+$grid-row-cell-focus-border-width: dynamic(0);
+
+/**
+ * Grid cell inner padding
+ */
+$grid-cell-inner-padding: dynamic(6px 10px 5px);
+
+/**
+ * Panel header
+ */
+$panel-header-padding: dynamic(8px 12px 9px);
+
+/**
+ * Nav tree items
+ */
+$treelist-item-line-height: dynamic(30px);

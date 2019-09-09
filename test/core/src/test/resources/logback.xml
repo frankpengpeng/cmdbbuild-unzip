@@ -1,0 +1,35 @@
+<configuration>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="SQL" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%n%msg%n%n</pattern>
+		</encoder>
+	</appender>
+
+  
+	<logger name="org.springframework.jdbc" level="WARN"/>
+  
+	<logger name="org.cmdbuild" level="INFO"/>
+	<logger name="org.cmdbuild.dao" level="INFO"/>
+	<logger name="org.cmdbuild.db" level="INFO"/>
+	<logger name="org.cmdbuild.test.dao" level="DEBUG"/>
+	<logger name="org.cmdbuild.test.dao.utils" level="INFO"/>
+	<!--<logger name="org.cmdbuild.etl" level="TRACE"/>-->
+	<logger name="org.cmdbuild.test" level="DEBUG"/>
+	<!--<logger name="org.cmdbuild.workflow.core.fluentapi" level="TRACE"/>-->
+	<logger name="org.cmdbuild.workflow" level="TRACE"/>
+	<logger name="org.cmdbuild.email.template" level="TRACE"/>
+
+	<logger name="org.cmdbuild.sql" level="INFO" additivity="false" >
+		<appender-ref ref="SQL" />
+	</logger>
+	
+	<root level="WARN">
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>

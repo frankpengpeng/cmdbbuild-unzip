@@ -1,0 +1,83 @@
+Ext.define('CMDBuildUI.view.administration.content.localizations.localization.TabPanel', {
+    extend: 'Ext.tab.Panel',
+
+    requires: [
+        'CMDBuildUI.view.administration.content.localizations.localization.TabPanelController',
+        'CMDBuildUI.view.administration.content.localizations.localization.TabPanelModel'
+    ],
+
+    alias: 'widget.administration-content-localizations-localization-tabpanel',
+    controller: 'administration-content-localizations-localization-tabpanel',
+    viewModel: {
+        type: 'administration-content-localizations-localization-tabpanel'
+    },
+
+    tabPosition: 'top',
+    tabRotation: 0,
+    cls: 'administration-mainview-tabpanel',
+    ui: 'administration-tabandtools',
+    scrollable: true,
+    forceFit: true,
+    layout: 'fit',
+
+    bind: {
+        activeTab: '{activeTab}'
+    },
+    tbar: [{
+            // it will set the correct heigth
+            xtype: 'button',
+            itemId: 'spacer',
+            width: 0,
+            style: {
+                "visibility": "hidden"
+            }
+        },
+        {
+            xtype: 'textfield',
+            name: 'search',
+            width: 250,
+            enableKeyEvents: true,
+
+            emptyText: CMDBuildUI.locales.Locales.administration.attributes.emptytexts.search,
+            localized: {
+                emptyText: 'CMDBuildUI.locales.Locales.administration.attributes.emptytexts.search'
+            },
+            reference: 'localizationsearchtext',
+            itemId: 'localizationsearchtext',
+            cls: 'administration-input',
+            bind: {
+                value: '{search.value}',
+                hidden: '{!canFilter}'
+            },
+            listeners: {
+                keyup: 'onKeyUp'
+            },
+            triggers: {
+                clear: {
+                    cls: Ext.baseCSSPrefix + 'form-clear-trigger',
+                    handler: 'onSearchClear'
+                }
+            }
+        },
+        {
+            xtype: 'tbfill'
+        }, {
+            xtype: 'tool',
+            itemId: 'editBtn',
+            cls: 'administration-tool',
+            iconCls: 'x-fa fa-pencil',
+            tooltip: CMDBuildUI.locales.Locales.administration.common.actions.edit,
+            localized: {
+                tooltip: 'CMDBuildUI.locales.Locales.administration.common.actions.edit'
+            },
+            hidden: true,
+            bind: {
+                hidden: '{!actions.view}'
+            },
+            callback: 'onEditBtnClick',
+            autoEl: {
+                'data-testid': 'administration-content-localizations-localization-tabpanel-tool-editbtn'
+            }
+        }
+    ]
+});

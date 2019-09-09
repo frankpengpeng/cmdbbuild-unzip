@@ -1,0 +1,32 @@
+package org.cmdbuild.test.rest;
+
+import static com.jayway.restassured.RestAssured.given;
+
+import org.cmdbuild.client.rest.RestClient;
+import org.cmdbuild.test.framework.CmTestRunner;
+import org.cmdbuild.test.framework.Context;
+import org.cmdbuild.test.rest.utils.AbstractWsIT;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import static org.cmdbuild.test.rest.TestContextProviders.TC_R2U;
+
+@RunWith(CmTestRunner.class)
+@Context(TC_R2U)
+public class ProcessActivityRestIT extends AbstractWsIT {
+
+    @Before
+    public void init() {
+        RestClient restClient = getRestClient();
+        restClient.system().setConfigs(
+                "org.cmdbuild.workflow.enabled", "true",
+                "org.cmdbuild.workflow.providers", "river");
+        restClient.workflow().uploadPlanVersion("AssetMgt", ProcessRestIT.class.getResourceAsStream("/org/cmdbuild/test/workflow/assetmgt.xpdl"));
+    }
+
+    @Test
+    public void getProcessesActivities() {
+        given().header(CMDBUILD_AUTH_HEADER, getSessionToken()).get(buildRestV3Url("processes/AssetMgt/instance_activities"))
+                .then().statusCode(200);
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "pg_client_versions": [        
+        "9.3.23-1",
+        "9.4.18-1",
+        "9.5.13-1",
+        "9.6.9-1",
+        "10.4-1"
+    ],
+    "pg_server_versions": [{
+            "v": "9.5.16-1",
+            "url": "https://get.enterprisedb.com/postgresql/postgresql-9.5.16-1-linux-x64-binaries.tar.gz",
+            "sha1hash": "df5a287a5bff2ffbae32e825f2f42a34832ea8ad"
+        }, {
+            "v": "9.6.12-2",
+            "url": "https://get.enterprisedb.com/postgresql/postgresql-9.6.12-2-linux-x64-binaries.tar.gz",
+            "sha1hash": "e85c6f664b136fffe24217fca2b0e4e0724b543c"
+        }, {
+            "v": "10.7-2",
+            "url": "https://get.enterprisedb.com/postgresql/postgresql-10.7-2-linux-x64-binaries.tar.gz",
+            "sha1hash": "e5714f5d88bce2a955b4bdad8cf2dc44985f4392"
+        }]
+}

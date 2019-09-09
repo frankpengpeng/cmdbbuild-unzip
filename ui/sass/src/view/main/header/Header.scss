@@ -1,0 +1,17 @@
+@include extjs-button-small-ui(
+    $ui: 'header',
+    $color: $color,
+    $glyph-color: mix(#FFF, $color, 40%),
+    $background-color: transparent,
+    $border-width: 0
+);
+
+.logo img {
+    max-height: 30px;
+}
+.instancename {
+    font-size: 150%;
+}
+.header-button-link{
+    text-decoration: none;
+}

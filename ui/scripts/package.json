@@ -1,0 +1,23 @@
+{
+  "name": "cmdbuild-locales",
+  "version": "1.0.0",
+  "description": "CMDBuild 3x locales management.",
+  "main": "updatelocales.js",
+  "dependencies": {
+    "js-beautify": "1.8.9",
+    "json2csv": "4.4.1",
+    "csvtojson": "2.0.8"
+  },
+  "scripts": {
+    "update-locales": "node updatelocales.js",
+    "import-old-locales": "node importlocales.js",
+    "export-csv": "node export2csv.js",
+    "import-csv": "node importfromcsv.js"
+  },
+  "keywords": [
+    "cmdbuild",
+    "locales"
+  ],
+  "author": "Tecnoteca srl",
+  "license": "ISC"
+}

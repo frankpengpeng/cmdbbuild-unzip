@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context displayName="CMDBuild" path="/cmdbuild">
+	<Resource name="jdbc/cmdbuild" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp2.BasicDataSourceFactory"
+		defaultAutoCommit="true" maxIdle="10" maxTotal="80" maxWaitMillis="10000" />
+		<!--
+			// the following parameters are useful to debug connection leak; 
+			// see http://commons.apache.org/proper/commons-dbcp/apidocs/org/apache/commons/dbcp2/BasicDataSource.html 
+			
+			removeAbandonedOnMaintenance="true" removeAbandonedTimeout="5" logAbandoned="true"
+		-->
+</Context>

@@ -1,0 +1,68 @@
+Ext.define('CMDBuildUI.model.emails.Account', {
+    extend: 'CMDBuildUI.model.base.Base',
+
+    fields: [{
+        name: 'name',
+        type: 'string',
+        validators: ['presence'],
+        critical: true
+    }, {
+        name: 'default',
+        type: 'boolean',
+        critical: true
+    }, {
+        name: 'username',
+        type: 'string',
+        critical: true
+    }, {
+        name: 'password',
+        type: 'string',
+        critical: true
+    }, {
+        name: 'address',
+        type: 'string',
+        validators: ['presence'],
+        critical: true
+    }, {
+        name: 'smtp_server',
+        type: 'string',
+        critical: true
+    }, {
+        name: 'smtp_port',
+        type: 'int',
+        critical: true
+    }, {
+        name: 'smtp_ssl',
+        type: 'boolean',
+        critical: true
+    }, {
+        name: 'smtp_starttls',
+        type: 'boolean',
+        critical: true
+    }, {
+        name: 'imap_output_folder',
+        type: 'auto',
+        critical: true
+    }, {
+        name: 'imap_server',
+        type: 'string',
+        critical: true
+    }, {
+        name: 'imap_port',
+        type: 'int',
+        critical: true
+    }, {
+        name: 'imap_ssl',
+        type: 'boolean',
+        critical: true
+    }, {
+        name: 'imap_starttls',
+        type: 'boolean',
+        critical: true
+    }],
+    proxy: {
+        url: CMDBuildUI.util.api.Emails.getAccountsUrl(),
+        type: 'baseproxy'
+    }
+
+});

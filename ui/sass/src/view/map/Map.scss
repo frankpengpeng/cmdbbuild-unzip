@@ -1,0 +1,16 @@
+/* OpenLayer override */
+div.ol-mouse-position {
+    bottom: 8px;
+    right: 8px;
+    top: inherit;
+    background: rgba(0,60,136,.3);
+    border-radius: 4px;
+    padding: 2px;
+    color: #fff;
+}
+div.ol-mouse-position:hover {
+    background-color: rgba(0,60,136,.7);
+}
+div.ol-scale-line:hover {
+    background-color: rgba(0,60,136,.7);
+}

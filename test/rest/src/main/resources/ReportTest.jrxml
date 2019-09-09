@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AssetList" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="782" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="c0436271-f4dd-4f0c-a258-a1bb7b144c72">
+	<property name="ireport.scriptlethandling" value="2"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<queryString>
+		<![CDATA[SELECT
+"Asset"."Code" AS "AssetCode", max("Asset"."Description") AS "AssetDescription", max("LookUp1"."Description") AS "AssetBrand",
+"Workplace"."Code" AS "WorkplaceCode", max("Workplace"."Description") AS "WorkplaceDescription", max("Employee"."Description") as "Assignee", max(lower("Employee"."Email")) as "Email",
+coalesce("Room"."Code", 'Not defined') AS "RoomCode",
+max(coalesce("Room"."Description",'Not defined')) AS "RoomDescription",
+max(coalesce("Floor"."Description" ,'Not defined')) AS "FloorDescription",
+max(coalesce("Building"."Description",'Not defined')) AS "BuildingDescription"
+FROM "Asset"
+LEFT OUTER JOIN "Workplace" ON "Workplace"."Id"="Asset"."Workplace" AND "Workplace"."Status"='A'
+LEFT OUTER JOIN "Employee" ON "Employee"."Id"="Asset"."Assignee" AND "Employee"."Status"='A'
+LEFT OUTER JOIN "Room" ON "Room"."Id"="Asset"."Room" AND "Room"."Status"='A'
+LEFT OUTER JOIN "Floor" ON "Floor"."Id"="Room"."Floor" AND "Floor"."Status"='A'
+LEFT OUTER JOIN "Building" ON "Building"."Id"="Floor"."Building" AND "Building"."Status"='A'
+LEFT OUTER JOIN "LookUp" AS "LookUp1" ON "LookUp1"."Id"="Asset"."Brand"
+WHERE "Asset"."Status"='A'
+GROUP BY "Room"."Code", "Workplace"."Code", "Asset"."Code"
+ORDER BY "Room"."Code"]]>
+	</queryString>
+	<field name="AssetCode" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AssetDescription" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+
+	<field name="WorkplaceCode" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+
+	<field name="Assignee" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Email" class="java.lang.String">
+	</field>
+	<group name="palazzo">
+		<groupExpression><![CDATA[$F{BuildingDescription}]]></groupExpression>
+		<groupHeader>
+			<band height="27" splitType="Stretch">
+				<rectangle>
+					<reportElement key="rectangle-2" mode="Opaque" x="1" y="6" width="778" height="17" backcolor="#E0FAE9" uuid="8ebe12ce-b3d6-41b9-94a1-e0c6a3e8c075"/>
+					<graphicElement>
+						<pen lineWidth="0.0" lineStyle="Solid"/>
+					</graphicElement>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText-19" x="4" y="4" width="56" height="22" forecolor="#006666" uuid="e8e7e5d7-f843-4b5d-9b92-02efc51822e5"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<text><![CDATA[Building:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="63" y="4" width="196" height="20" uuid="cf3f2a6b-1009-4bcb-ab1e-03d942f0e715"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{BuildingDescription}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<group name="tavola">
+		<groupExpression><![CDATA[$F{FloorDescription}]]></groupExpression>
+		<groupHeader>
+			<band height="27" splitType="Stretch">
+				<rectangle>
+					<reportElement key="rectangle-3" mode="Opaque" x="18" y="4" width="761" height="19" backcolor="#F5ECEC" uuid="5d67cd85-1958-4430-b0bd-41ea4b676815"/>
+					<graphicElement>
+						<pen lineWidth="0.0" lineStyle="Solid"/>
+					</graphicElement>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText-20" x="23" y="5" width="40" height="18" forecolor="#660000" uuid="f79a1bc1-4df0-40dd-bda0-b0f1b54492aa"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Floor:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="72" y="5" width="204" height="18" uuid="aa7e741d-2566-43b4-a50a-f2c56c4b1fc6"/>
+					<textFieldExpression><![CDATA[$F{FloorDescription}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<group name="stanza">
+		<groupExpression><![CDATA[$F{RoomCode}]]></groupExpression>
+		<groupHeader>
+			<band height="27" splitType="Stretch">
+				<rectangle>
+					<reportElement key="rectangle-4" mode="Opaque" x="40" y="5" width="739" height="19" backcolor="#E2FAFA" uuid="b86f748c-92a9-4fed-94f4-147c775de5c7"/>
+					<graphicElement>
+						<pen lineWidth="0.0" lineStyle="Solid"/>
+					</graphicElement>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText-21" x="44" y="5" width="45" height="18" forecolor="#000099" uuid="44bde3dd-0954-4c6f-bcd6-3f73c0283f9b"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<text><![CDATA[Room:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="92" y="5" width="100" height="18" uuid="3725b9f8-b397-4996-b83c-0608b4e5f34c"/>
+					<textFieldExpression><![CDATA[$F{RoomCode}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="206" y="5" width="213" height="18" uuid="2d31597d-b03e-4299-908a-e4600368e889"/>
+					<textFieldExpression><![CDATA[$F{RoomDescription}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-1" x="192" y="18" width="399" height="26" uuid="ac958994-eca8-4db9-b888-02c29988feef"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Location list with assets]]></text>
+			</staticText>
+			<image isUsingCache="true" onErrorType="Blank">
+				<reportElement x="1" y="0" width="113" height="37" uuid="cb94b8e0-3de2-4a6c-bdc3-1c401f66a63f"/>
+				<imageExpression><![CDATA["LogoCMDBuild1.jpg"]]></imageExpression>
+			</image>
+			<image isUsingCache="true" onErrorType="Blank">
+				<reportElement x="669" y="0" width="113" height="37" uuid="2c76c2bc-f492-45d7-a7af-6d7ef01362eb"/>
+				<imageExpression><![CDATA["LogoCMDBuild2.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="36" splitType="Stretch">
+			<printWhenExpression><![CDATA[new Boolean ( $V{PAGE_NUMBER}.intValue() > 1 )]]></printWhenExpression>
+			<staticText>
+				<reportElement key="staticText-28" x="652" y="1" width="130" height="15" uuid="feacf468-edc2-4e5b-9b97-57f1c5895dbd"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Stampato con CMDBuild]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			
+			<line>
+				<reportElement key="line-1" x="1" y="31" width="781" height="1" forecolor="#CBC7C7" uuid="246c49e9-56f9-4db4-805f-a4565d211469"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="72" y="0" width="100" height="15" uuid="ddbd1a77-c807-4b0c-8ec2-02ff48adf031"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AssetBrand}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="72" y="15" width="100" height="14" uuid="cb7bdea8-cf09-4139-92b3-2f51d81de0df"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Assignee}]]></textFieldExpression>
+			</textField>
+
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="5" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="684" y="1" width="77" height="18" uuid="9fd75a71-d9a0-4944-9b7b-f3d9abd88ce3"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER} + " di "]]></textFieldExpression>
+			</textField>
+
+	
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="26" splitType="Stretch">
+	
+	
+		
+			
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="5" splitType="Stretch"/>
+	</summary>
+</jasperReport>

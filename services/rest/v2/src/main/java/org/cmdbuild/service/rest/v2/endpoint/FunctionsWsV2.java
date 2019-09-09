@@ -1,0 +1,175 @@
+package org.cmdbuild.service.rest.v2.endpoint;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.Maps.uniqueIndex;
+import java.util.Collection;
+import static java.util.Collections.emptyMap;
+import java.util.List;
+import java.util.Map;
+import static java.util.stream.Collectors.toList;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static org.apache.commons.lang3.StringUtils.EMPTY;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.apache.commons.lang3.math.NumberUtils.isNumber;
+import org.cmdbuild.dao.core.q3.DaoService;
+import org.cmdbuild.dao.entrytype.attributetype.AttributeTypeName;
+import org.cmdbuild.dao.entrytype.attributetype.CardAttributeType;
+import org.cmdbuild.dao.entrytype.attributetype.ForeignKeyAttributeType;
+import org.cmdbuild.dao.entrytype.attributetype.LookupAttributeType;
+import org.cmdbuild.dao.function.StoredFunction;
+import org.cmdbuild.dao.function.StoredFunctionOutputParameter;
+import org.cmdbuild.dao.function.StoredFunctionOutputParameterImpl;
+import org.cmdbuild.dao.function.StoredFunctionParameter;
+import org.cmdbuild.service.rest.common.serializationhelpers.AttributeTypeConversionService;
+import org.cmdbuild.service.rest.common.serializationhelpers.CardWsSerializationHelper;
+import static org.cmdbuild.service.rest.common.utils.WsResponseUtils.response;
+import static org.cmdbuild.service.rest.common.utils.WsSerializationAttrs.PARAMETERS;
+import org.cmdbuild.utils.json.CmJsonUtils;
+import static org.cmdbuild.utils.json.CmJsonUtils.MAP_OF_OBJECTS;
+import static org.cmdbuild.utils.json.CmJsonUtils.fromJson;
+import static org.cmdbuild.utils.lang.CmExceptionUtils.unsupported;
+import org.cmdbuild.utils.lang.CmMapUtils;
+import static org.cmdbuild.utils.lang.CmMapUtils.map;
+import static org.cmdbuild.utils.lang.CmPreconditions.checkNotBlank;
+
+@Path("functions/")
+@Produces(APPLICATION_JSON)
+public class FunctionsWsV2 {
+
+    private final DaoService dao;
+    private final CardWsSerializationHelper helper;
+
+    public FunctionsWsV2(DaoService dao, CardWsSerializationHelper helper) {
+        this.dao = checkNotNull(dao);
+        this.helper = checkNotNull(helper);
+    }
+
+    @GET
+    @Path(EMPTY)
+    public Object readMany() {
+        List<StoredFunction> list = dao.getAllFunctions();
+        return map("data", list.stream().map(this::serializeResponse).collect(toList()));
+    }
+
+    @GET
+    @Path("{functionId}/")
+    public Object readOne(@PathParam("functionId") Long functionId) {
+        StoredFunction function = dao.getFunctionById(functionId);
+        return map("data", serializeResponse(function));
+    }
+
+    @GET
+    @Path("{functionId}/parameters/")
+    public Object readInputParameters(@PathParam("functionId") Long functionId) {
+        StoredFunction function = dao.getFunctionById(functionId);
+        Collection<StoredFunctionParameter> parameters = function.getInputParameters();
+        return map("data", serializeResponseParameters(parameters));
+    }
+
+    @GET
+    @Path("{functionId}/attributes/")
+    public Object readOutputParameters(@PathParam("functionId") Long functionId) {
+        StoredFunction function = dao.getFunctionById(functionId);
+        Collection<StoredFunctionOutputParameter> oParameters = function.getOutputParameters();
+        return map("data", serializeResponseParameters(oParameters));
+    }
+
+    @GET
+    @Path("{functionId}/outputs/")
+    public Object call(@PathParam("functionId") Long functionId, @QueryParam(PARAMETERS) String inputs, @QueryParam("model") String model) {
+        StoredFunction function = dao.getFunctionById(functionId);
+
+        Map<String, Object> params = isBlank(inputs) ? emptyMap() : fromJson(inputs, MAP_OF_OBJECTS);
+        List<Object> inputParams = function.getInputParameters().stream().map(StoredFunctionParameter::getName).map(params::get).collect(toList());
+
+        List<StoredFunctionOutputParameter> outputParams = isBlank(model)
+                ? function.getOutputParameters()
+                : parseOutputParameters(function, model);
+
+        List rows = dao.selectFunction(function, inputParams, outputParams).run().stream().map((r) -> r.asMap())
+                .map((source) -> map().accept((map) -> outputParams.forEach((p) -> helper.addCardValuesAndDescriptionsAndExtras(p.getName(), p.getType(), source::get, map::put)))).collect(toList());
+
+        return map("data", rows);
+    }
+
+    private CmMapUtils.FluentMap<String, Object> serializeResponse(StoredFunction input) {
+        return map(
+                "name", input.getName(),
+                "description", input.getName(),
+                "metadata", input.getMetadataExt(),
+                "_id", input.getId());
+    }
+
+    private List<StoredFunctionOutputParameter> parseOutputParameters(StoredFunction function, String modelStr) {
+        WsFunctionOutputModel model = CmJsonUtils.fromJson(modelStr, WsFunctionOutputModel.class);
+        Map<String, WsFunctionOutputParameter> customParams = uniqueIndex(model.output, (p) -> p.name);
+        return function.getOutputParameters().stream().map((param) -> {
+            WsFunctionOutputParameter customParam = customParams.get(param.getName());
+            if (customParam != null) {
+                param = new StoredFunctionOutputParameterImpl(param.getName(), customParam.type, param.getBasedsp());
+            }
+            return param;
+
+        }).collect(toList());
+    }
+
+    private static class WsFunctionOutputModel {
+
+        private final List<WsFunctionOutputParameter> output;
+
+        public WsFunctionOutputModel(@JsonProperty("output") List<WsFunctionOutputParameter> output) {
+            this.output = checkNotNull(output);
+        }
+
+    }
+
+    private static class WsFunctionOutputParameter {
+
+        private final String name;
+        private final CardAttributeType type;
+
+        public WsFunctionOutputParameter(@JsonProperty("name") String name, @JsonProperty("type") String typeStr, @JsonProperty("fkTarget") String fkTarget, @JsonProperty("lookupType") String lookupType) {
+            this.name = checkNotBlank(name);
+            AttributeTypeName typeName = AttributeTypeName.valueOf(typeStr.toUpperCase());
+            switch (typeName) {
+                case FOREIGNKEY:
+                    type = new ForeignKeyAttributeType(fkTarget);
+                    break;
+                case LOOKUP:
+                    type = new LookupAttributeType(lookupType);
+                    break;
+                default:
+                    throw unsupported("unsupported param type = %s", typeStr);
+            }
+        }
+
+    }
+
+    private Object serializeResponseParameters(Collection<? extends StoredFunctionParameter> parameters) {
+        return response(parameters.stream().map(this::serializeParam).collect(toList()));
+    }
+
+    private Object serializeParam(StoredFunctionParameter param) {
+        return map(
+                "name", param.getName(),
+                "type", AttributeTypeConversionService.serializeAttributeType(param.getType().getName()),
+                "_id", param.getName());
+    }
+
+    private StoredFunction getFunction(String idOrName) {
+        checkNotBlank(idOrName);
+        if (isNumber(idOrName)) {
+            return dao.getFunctionById(Long.valueOf(idOrName));
+        } else {
+            return dao.getFunctionByName(idOrName);
+        }
+    }
+
+}
