@@ -46,7 +46,7 @@
         <shark.version>4.4-1</shark.version>
         <slf4j.version>1.7.15</slf4j.version>
         <spring.version>4.3.4.RELEASE</spring.version>
-        <spring-security.version>4.2.3.RELEASE</spring-security.version>
+        <spring-security.version>5.2.10.RELEASE</spring-security.version>
         <tomcat.version>6.0.45</tomcat.version> <!-- TODO -->
         <quartz.version>2.2.2</quartz.version>
         <hsqldb.version>1.4.196</hsqldb.version>
